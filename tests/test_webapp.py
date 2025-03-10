@@ -2,8 +2,7 @@ import json
 import os
 import sys
 import time
-
-import requests  # Used for the pre-test ping
+import requests
 from selenium import webdriver
 from selenium.webdriver.chrome.options import Options
 from selenium.webdriver.chrome.service import Service
@@ -11,15 +10,22 @@ from selenium.webdriver.common.by import By
 from selenium.webdriver.common.keys import Keys
 from webdriver_manager.chrome import ChromeDriverManager
 
-
-# Set Chrome options (optional)
+# Set Chrome options for Jenkins and Headless mode
 chrome_options = Options()
-chrome_options.add_argument("--headless")  # Optional: Headless mode for Jenkins
-chrome_options.add_argument("--no-sandbox")
-chrome_options.add_argument("--disable-gpu")
+chrome_options.add_argument("--headless")           # Headless mode
+chrome_options.add_argument("--no-sandbox")         # Required for Jenkins sometimes
+chrome_options.add_argument("--disable-gpu")        # Disable GPU rendering
+chrome_options.add_argument("--disable-dev-shm-usage")  # Overcome limited resource problems
+chrome_options.add_argument("--window-size=1920x1080")
 
+# Optional: if Jenkins runs under SYSTEM or can't find Chrome, specify the binary location
+chrome_options.binary_location = "C:\\Program Files\\Google\\Chrome\\Application\\chrome.exe"
+
+# Setup the ChromeDriver
 driver_path = ChromeDriverManager().install()
 service = Service(driver_path)
+
+# Initialize WebDriver with options and service
 driver = webdriver.Chrome(service=service, options=chrome_options)
 
 try:
@@ -48,9 +54,6 @@ try:
         print(f"❌ Pre-test failed! Error: {e}")
         sys.exit(1)
 
-    # Setup WebDriver (Chrome)
-    driver = webdriver.Chrome()
-
     # 1️⃣ Verify Home Page Loads
     driver.get(base_url + "/")
     assert expected_home_title in driver.title
@@ -77,16 +80,11 @@ try:
 
 except AssertionError as e:
     print("❌ TEST FAILED!")
-    driver.quit()
     sys.exit(1)
 
 except Exception as e:
     print(f"❌ ERROR: {e}")
-    driver.quit()
     sys.exit(1)
-
-else:
-    print("🎉 ALL TESTS PASSED!")
 
 finally:
     driver.quit()
