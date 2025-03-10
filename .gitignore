@@ -1,1 +1,5 @@
 target/\n*.class\n*.log\n
+/out/
+/target/
+/web/WEB-INF/
+./.idea

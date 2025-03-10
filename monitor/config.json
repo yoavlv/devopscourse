@@ -1,0 +1,7 @@
+{
+    "url": "http://localhost:8080/yoavlav-devopscourse",
+    "expected_status": 200,
+    "timeout": 5,
+    "max_response_time": 2000,
+    "content_check": "Welcome"
+}
