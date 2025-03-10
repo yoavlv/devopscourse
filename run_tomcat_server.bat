@@ -1,6 +1,7 @@
 @echo off
+setlocal
 
-:: Find the Tomcat directory (simplified, specify or search)
+:: Set the base directory and search for tomcat folder
 set "BASE_DIR=C:\"
 for /d %%i in ("%BASE_DIR%\apache-tomcat-*") do (
     set "TOMCAT_DIR=%%i"
@@ -13,16 +14,22 @@ exit /b 1
 :found
 echo Found Tomcat directory: %TOMCAT_DIR%
 
-:: Move to bin folder
+:: Go to the bin directory
 cd /d "%TOMCAT_DIR%\bin"
 
-:: Restart Tomcat
+:: Shutdown Tomcat
 echo Stopping Tomcat...
 call shutdown.bat
 
-timeout /t 5 /nobreak
+timeout /t 5
 
+:: Start Tomcat
 echo Starting Tomcat...
 call startup.bat
 
 echo Tomcat restarted!
+
+:: Return to original directory (optional, but recommended)
+cd /d %WORKSPACE%
+
+endlocal
