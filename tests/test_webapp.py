@@ -79,7 +79,7 @@ def verify_chromedriver():
         print(f"✅ ChromeDriver is ready at {CHROMEDRIVER_EXE}")
 
 # ✅ Run pre-test setup
-download_and_extract_chromedriver()
+# download_and_extract_chromedriver()
 verify_chromedriver()
 
 # ✅ Setup Chrome options
