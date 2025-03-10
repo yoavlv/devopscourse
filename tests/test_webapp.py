@@ -1,11 +1,11 @@
 import json
 import os
+import shutil
 import sys
 import time
-import requests
 import zipfile
-import shutil
 
+import requests
 from selenium import webdriver
 from selenium.webdriver.chrome.options import Options
 from selenium.webdriver.chrome.service import Service
@@ -71,6 +71,7 @@ def download_and_extract_chromedriver():
         print(f"❌ Failed to download or extract ChromeDriver: {e}")
         sys.exit(1)
 
+
 def verify_chromedriver():
     if not os.path.exists(CHROMEDRIVER_EXE):
         print("❌ ChromeDriver not found! Exiting.")
@@ -78,15 +79,22 @@ def verify_chromedriver():
     else:
         print(f"✅ ChromeDriver is ready at {CHROMEDRIVER_EXE}")
 
+
 # ✅ Run pre-test setup
-# download_and_extract_chromedriver()
-verify_chromedriver()
+try:
+    download_and_extract_chromedriver()
+except Exception as e:
+    print(f"Failed to download and extract ChromeDriver: {e} | Skipping test.")
+try:
+    verify_chromedriver()
+except Exception as e:
+    print(f"Failed ChromeDriver verification failed: {e} | Skipping test.")
 
 # ✅ Setup Chrome options
 chrome_options = Options()
-chrome_options.add_argument("--headless")           # Headless mode
-chrome_options.add_argument("--no-sandbox")         # Required in some Jenkins/CI
-chrome_options.add_argument("--disable-gpu")        # Disable GPU rendering
+chrome_options.add_argument("--headless")  # Headless mode
+chrome_options.add_argument("--no-sandbox")  # Required in some Jenkins/CI
+chrome_options.add_argument("--disable-gpu")  # Disable GPU rendering
 chrome_options.add_argument("--disable-dev-shm-usage")  # Overcome limited resources
 chrome_options.add_argument("--window-size=1920x1080")
 
