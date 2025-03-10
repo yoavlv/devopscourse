@@ -1,7 +1,10 @@
 {
-    "base_url": "http://localhost:8080/yoavlav-devopscourse",
-    "expected_home_title": "Home",
-    "expected_about_text": "About This App",
-    "test_username": "Yoav",
-    "expected_greeting": "Hello, Yoav!"
+  "base_url": "http://localhost:8080/yoavlav-devopscourse",
+  "expected_home_title": "Home",
+  "expected_about_text": "About This App",
+  "test_username": "Yoav",
+  "expected_greeting": "Hello, Yoav!",
+  "chromedriver_url": "https://storage.googleapis.com/chrome-for-testing-public/134.0.6998.35/win64/chromedriver-win64.zip",
+  "chromedriver_dir": "C:/tools/chromedriver",
+  "chrome_binary_path": "C:/Program Files/Google/Chrome/Application/chrome.exe"
 }
