@@ -1,0 +1,7 @@
+{
+    "base_url": "http://localhost:8080/yoavlav-devopscourse",
+    "expected_home_title": "Home",
+    "expected_about_text": "About This App",
+    "test_username": "Yoav",
+    "expected_greeting": "Hello, Yoav!"
+}
